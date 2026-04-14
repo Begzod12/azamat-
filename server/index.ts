@@ -7,7 +7,7 @@ import type { GraphPayload, PersonNode, PersonRelation, RelationType } from '../
 
 dotenv.config()
 
-const app = express()
+export const app = express()
 const port = Number(process.env.PORT ?? 8787)
 const maxLoginAttempts = 5
 const lockDurationMs = 2 * 60 * 60 * 1000 // 2 часа
@@ -275,6 +275,8 @@ app.post('/api/import', requireAdmin, async (req, res) => {
   res.status(200).json({ message: 'Импорт завершен.' })
 })
 
-app.listen(port, () => {
-  console.log(`API сервер запущен: http://localhost:${port}`)
-})
+if (!process.env.VERCEL) {
+  app.listen(port, () => {
+    console.log(`API сервер запущен: http://localhost:${port}`)
+  })
+}
