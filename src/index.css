@@ -1,0 +1,248 @@
+@import "tailwindcss";
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #f4f5f7;
+  background-image:
+    linear-gradient(rgba(24, 28, 40, 0.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 28, 40, 0.075) 1px, transparent 1px);
+  background-size: 34px 34px;
+  color: #141414;
+  overflow: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) 1fr;
+  position: relative;
+}
+
+.scanline-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.45), transparent 65%);
+  opacity: 0.45;
+}
+
+.panel {
+  z-index: 2;
+  padding: 12px;
+  backdrop-filter: blur(8px);
+  background: rgba(10, 10, 10, 0.95);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  overflow-y: auto;
+}
+
+.panel h1 {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+  color: #f2f2f2;
+}
+
+.card {
+  background: rgba(18, 18, 18, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 8px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+}
+
+.card h2 {
+  margin: 0 0 8px;
+  color: #f0f0f0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+input,
+textarea,
+select,
+button {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: #0f0f0f;
+  color: #f1f1f1;
+  padding: 7px 9px;
+  margin-bottom: 6px;
+  font-size: 0.88rem;
+}
+
+textarea {
+  min-height: 56px;
+  max-height: 92px;
+}
+
+button {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+  border-color: rgba(255, 255, 255, 0.36);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.16);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.graph-zone {
+  position: relative;
+  height: 100vh;
+}
+
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    linear-gradient(rgba(34, 40, 62, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 40, 62, 0.09) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.person-card {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  width: min(420px, calc(100vw - 36px));
+  max-height: calc(100vh - 36px);
+  overflow: auto;
+  background: rgba(16, 16, 16, 0.92);
+  color: #f4f4f4;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28);
+  z-index: 20;
+}
+
+.person-card h3 {
+  margin: 0 0 8px;
+  color: #ffffff;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 10px;
+}
+
+.chips span {
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  color: #f3f3f3;
+}
+
+.relation-strip {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 14px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  z-index: 3;
+}
+
+.relation-strip button {
+  width: auto;
+  margin: 0;
+  font-size: 0.76rem;
+}
+
+.status-card {
+  position: absolute;
+  left: 18px;
+  top: 18px;
+  width: 260px;
+  background: rgba(15, 15, 15, 0.9);
+  color: #f5f5f5;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 5;
+}
+
+.inline-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.inline-actions button {
+  margin-bottom: 0;
+}
+
+.person-card .inline-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.person-card button {
+  white-space: normal;
+  word-break: break-word;
+}
+
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-field input {
+  margin-bottom: 0;
+}
+
+.muted {
+  color: #d0d0d0;
+  font-size: 0.83rem;
+}
+
+@keyframes scan {
+  from {
+    transform: translateY(-12px);
+  }
+  to {
+    transform: translateY(12px);
+  }
+}
+
+@media (max-width: 1100px) {
+  body {
+    overflow: auto;
+  }
+  .app-shell {
+    height: auto;
+    grid-template-columns: 1fr;
+  }
+  .panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(96, 145, 255, 0.25);
+  }
+  .graph-zone {
+    height: 70vh;
+  }
+}
