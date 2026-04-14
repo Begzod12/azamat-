@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import express from 'express'
 import jwt from 'jsonwebtoken'
 import { createClient } from '@supabase/supabase-js'
-import type { GraphPayload, PersonNode, PersonRelation, RelationType } from '../src/types'
+import type { GraphPayload, PersonNode, PersonRelation, RelationType } from '../src/types.js'
 
 dotenv.config()
 
